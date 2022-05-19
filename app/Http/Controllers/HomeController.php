@@ -11,7 +11,7 @@ class HomeController extends Controller
     //
     public function index()
     {
-        $email = 'pawan99saini@gmail.com';
+        $email = 'demo@gmail.com';
         $name="pawan";
         $body="<p>hello</p>";
         Mail::send([], [], function($message) use ($name, $email,$body) {
