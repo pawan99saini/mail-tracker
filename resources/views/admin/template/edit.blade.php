@@ -70,6 +70,17 @@
                     </span>
                     @endif
                       </div>
+					  <div class="form-group">
+                    <label for="order_no" class="col-sm-2 col-form-label">Order</label>
+                    <div class="col-sm-10">
+                      <input type="number" class="form-control" name="order_no" id="order_no" value="{{$template->order_no}}" min="1">
+                      @if ($errors->has('order_no'))
+                    <span class="text-danger">
+                    {{ $errors->first('order_no') }}
+                    </span>
+                    @endif
+                    </div>
+                  </div>
                       
                   Status
                         <div class="material-switch pull-right">

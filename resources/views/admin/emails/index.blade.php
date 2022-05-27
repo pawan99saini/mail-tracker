@@ -1,19 +1,21 @@
 @extends('admin.layouts.admin')
 @section('content')
-<div class="content-wrapper" style="min-height: 1302.12px;">
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Category
-				<a href="{{url('admin/category/create')}}" class="btn bg-gradient-primary btn-sm">Create Category</a>
-				</h1>
+            <h1>Email
+              <a href="{{url('admin/emails/create')}}" class="btn bg-gradient-primary btn-sm">Compose</a>
+
+            </h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Category</li>
+              <li class="breadcrumb-item active">Email</li>
             </ol>
           </div>
         </div>
@@ -29,9 +31,10 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Category</h3>
+                <h3 class="card-title">Email</h3>
+
                 <div class="card-tools">
-                  <form method="get" action="{{url('admin/category')}}">
+                  <form method="GET" action="{{url('admin/dashboard')}}">
                   <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="search" value="{{request()->get('search') ? request()->get('search') : ''}}" class="form-control float-right" placeholder="Search">
 
@@ -41,6 +44,7 @@
                       </button>
                     </div>
                   </div>
+                  </form>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -48,40 +52,45 @@
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
-                      <th>ID</th>
-                      <th>Title</th>
+                      <th>No.</th>
+                      <th>Sender Name</th>
+                      <th>Sender Email</th>
+                      <th>Recipient Name</th>
+                      <th>Recipient Email</th>
+                      <th>Opens</th>
+                      <th>Clicks</th>
                       <th>Date</th>
-                      <th>Status</th>
-                      <th>Action</th>
+                      
                     </tr>
                   </thead>
                   <tbody>
-                      @foreach($category as $key=>$cat)
+                      @foreach($emails as $key=>$email)
                     <tr>
-                      <td>{{$key+ $category->firstItem() }}</td>
-                      <td>{{$cat->title}}</td>
-                      <td>{{$cat->created_at}}</td>
-                      <td>{{$cat->status==1 ? 'Active' : 'Deactive'}}</td>
-                      <td><a class="btn btn-app" href="{{route('category.edit',$cat->id)}}"><i class="fas fa-edit"></i> Edit</a>
-					  </td>
+                        <td>{{$key+ $emails->firstItem() }}</td>
+                      <td>{{$email->sender_name}}</td>
+                      <td>{{$email->sender_email}}</td>
+                      <td>{{$email->recipient_name}}</td>
+                      <td>{{$email->recipient_email}}</td>
+                      <td>{{$email->opens}}</td>
+                      <td>{{$email->clicks}}</td>
+                      <td>{{$email->created_at}}</td>
+                     
                     </tr>
                    @endforeach
                   </tbody>
-				    
                 </table>
-				
               </div>
-			
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
           </div>
         </div>
-     <div class="row">
-	 {!! $category->links() !!}
+       <div class="row">
+	 {!! $emails->links() !!}
 	 </div>
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
   </div>
+  <!-- /.content-wrapper -->
   @endsection

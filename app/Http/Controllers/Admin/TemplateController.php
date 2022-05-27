@@ -14,9 +14,22 @@ class TemplateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $template = Template::paginate(10);
+        $search =  $request->input('search');
+        if($search!=""){
+            $template = Template::where(function ($query) use ($search){
+                $query->where('title', 'like', '%'.$search.'%');
+                    
+            })
+            ->paginate(10);
+            $template->appends(['search' => $search]);
+        }
+        else{
+            $template = Template::orderby('id','desc')->paginate(10);
+
+        }
+      
         return view('admin.template.index')->with([
             'template'  => $template
         ]);
@@ -40,11 +53,13 @@ class TemplateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
         $request->validate([
             'title' => 'required',
             'category_id'=>'required',
+			'order_no'=>'required',
             'desc'=>'required'
            
         ]
@@ -52,6 +67,7 @@ class TemplateController extends Controller
 
         $page = new Template;
         $page->title = $request->title;
+		$page->order_no = $request->order_no;
         $page->category_id = $request->category_id;
         $page->description = $request->desc;
         $page->status = $request->status =='on'? 1 :0;
@@ -69,8 +85,19 @@ class TemplateController extends Controller
     public function show($id)
     {
         //
+        $template = Template::where('category_id',$id)->get();
+        return response()->json([
+            'template' => $template
+        ]);
     }
 
+    public function getContent($id)
+    {
+        $template = Template::where('id',$id)->first();
+        return response()->json([
+            'template' => $template
+        ]);
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -96,6 +123,7 @@ class TemplateController extends Controller
         $request->validate([
             'title' => 'required',
             'category_id'=>'required',
+			'order_no'=>'required',
             'desc'=>'required'
            
         ]
@@ -105,6 +133,7 @@ class TemplateController extends Controller
         $page->title = $request->title;
         $page->category_id = $request->category_id;
         $page->description = $request->desc;
+		$page->order_no = $request->order_no;
         $page->status = $request->status =='on'? 1 :0;
         $page->save();
 

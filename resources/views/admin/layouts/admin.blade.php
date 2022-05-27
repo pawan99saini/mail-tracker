@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
   <title>Dashboard</title>
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -12,10 +13,12 @@
   <link rel="stylesheet" href="{{asset('assets/css/icheck-bootstrap.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('assets/css/adminlte.min.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/css/select2.min.css')}}">
   <style>
-    .material-switch > input[type="checkbox"] {
+    .material-switch > input[type="checkbox"] 
+    {
     display: none;   
-}
+ }
 
 .material-switch > label {
     cursor: pointer;
@@ -90,15 +93,15 @@
 <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('assets/js/adminlte.min.js')}}"></script>
-<script src="{{asset('assets/js/dashboard3.js')}}"></script>
 <script src="{{asset('assets/js/sweetalert.min.js')}}"></script>
+<script src="{{asset('assets/js/select2.full.min.js')}}"></script>
 <script src="{{asset('assets/ckeditor/ckeditor.js')}}" type="text/javascript"></script>
-
-</script>
+<script src="{{asset('assets/js/dashboard3.js')}}"></script>
 
 
 <script>
 
+var site_url = "{{url('/')}}";
     $(document).ready(function() {
 
         
@@ -113,7 +116,7 @@
 
     })
 
-
+    $('.select2').select2()
 
     });
 

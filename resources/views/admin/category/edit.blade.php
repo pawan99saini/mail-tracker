@@ -35,13 +35,24 @@
                   @csrf
                   @method('PUT')
                 <div class="card-body">
-                  <div class="form-group row">
+                  <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
                     <div class="col-sm-10">
                       <input type="text" class="form-control" name="title" id="inputEmail3" value="{{$category->title}}"placeholder="Title" >
                       @if ($errors->has('title'))
                     <span class="text-danger">
                     {{ $errors->first('title') }}
+                    </span>
+                    @endif
+                    </div>
+                  </div>
+				  <div class="form-group">
+                    <label for="order_no" class="col-sm-2 col-form-label">Order</label>
+                    <div class="col-sm-10">
+                      <input type="number" class="form-control" name="order_no" id="order_no" value="{{$category->order_no}}" min="1">
+                      @if ($errors->has('order_no'))
+                    <span class="text-danger">
+                    {{ $errors->first('order_no') }}
                     </span>
                     @endif
                     </div>

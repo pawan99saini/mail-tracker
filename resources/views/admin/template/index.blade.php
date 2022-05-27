@@ -6,7 +6,10 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Category</h1>
+            <h1>Template
+			<a href="{{url('admin/template/create')}}" class="btn bg-gradient-primary btn-sm">Create Template</a>
+
+			</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -27,11 +30,12 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Category</h3>
+                <h3 class="card-title">Template</h3>
 
                 <div class="card-tools">
+                  <form method="GET" action="{{url('admin/template')}}">
                   <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                    <input type="text" name="search" value="{{request()->get('search') ? request()->get('search') : ''}}" class="form-control float-right" placeholder="Search">
 
                     <div class="input-group-append">
                       <button type="submit" class="btn btn-default">
@@ -39,6 +43,7 @@
                       </button>
                     </div>
                   </div>
+                  </form>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -54,13 +59,15 @@
                     </tr>
                   </thead>
                   <tbody>
-                      @foreach($template as $k=>$t)
+                      @foreach($template as $key=>$t)
                     <tr>
-                      <td>{{$k+1}}</td>
+                        <td>{{$key+ $template->firstItem() }}</td>
                       <td>{{$t->title}}</td>
                       <td>{{$t->created_at}}</td>
                       <td>{{$t->status==1 ? 'Active' : 'Deactive'}}</td>
-                      <td><a href="{{route('template.edit',$t->id)}}" class="btn btn-primary">Edit</a></td>
+                      <td>
+					  <a class="btn btn-app" href="{{route('template.edit',$t->id)}}"><i class="fas fa-edit"></i> Edit</a>
+					  </td>
                     </tr>
                    @endforeach
                   </tbody>
@@ -71,7 +78,9 @@
             <!-- /.card -->
           </div>
         </div>
-     
+       <div class="row">
+	 {!! $template->links() !!}
+	 </div>
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->

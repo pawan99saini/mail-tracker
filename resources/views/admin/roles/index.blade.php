@@ -6,14 +6,14 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Category
-				<a href="{{url('admin/category/create')}}" class="btn bg-gradient-primary btn-sm">Create Category</a>
+            <h1>Roles
+				<a href="{{url('admin/roles/create')}}" class="btn bg-gradient-primary btn-sm">Create Roles</a>
 				</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Category</li>
+              <li class="breadcrumb-item active">Roles</li>
             </ol>
           </div>
         </div>
@@ -29,9 +29,9 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Category</h3>
+                <h3 class="card-title">Roles</h3>
                 <div class="card-tools">
-                  <form method="get" action="{{url('admin/category')}}">
+                  <form method="get" action="{{url('admin/roles')}}">
                   <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="search" value="{{request()->get('search') ? request()->get('search') : ''}}" class="form-control float-right" placeholder="Search">
 
@@ -49,20 +49,20 @@
                   <thead>
                     <tr>
                       <th>ID</th>
-                      <th>Title</th>
+                      <th>Role</th>
                       <th>Date</th>
-                      <th>Status</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                      @foreach($category as $key=>$cat)
+                      @foreach($roles as $key=>$role)
                     <tr>
-                      <td>{{$key+ $category->firstItem() }}</td>
-                      <td>{{$cat->title}}</td>
-                      <td>{{$cat->created_at}}</td>
-                      <td>{{$cat->status==1 ? 'Active' : 'Deactive'}}</td>
-                      <td><a class="btn btn-app" href="{{route('category.edit',$cat->id)}}"><i class="fas fa-edit"></i> Edit</a>
+                      <td>{{$key+ $roles->firstItem() }}</td>
+                      <td>{{$role->name}}</td>
+                      <td>{{$role->created_at}}</td>
+                      <td>
+                        
+                        <a class="btn btn-app" href="{{route('roles.edit',$role->id)}}"><i class="fas fa-edit"></i> Edit</a>
 					  </td>
                     </tr>
                    @endforeach
@@ -78,7 +78,7 @@
           </div>
         </div>
      <div class="row">
-	 {!! $category->links() !!}
+	 {!! $roles->links() !!}
 	 </div>
       </div><!-- /.container-fluid -->
     </section>

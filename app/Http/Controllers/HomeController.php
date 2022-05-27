@@ -22,13 +22,7 @@ class HomeController extends Controller
         });
         echo "Basic Email Sent. Check your inbox.";
         
-        // Mail::raw('Hi, welcome user!', function ($message) {
-        //     $message->to('pawan99saini@gmail.com')
-        //       ->subject('Hello');
-        //   })->send();
-        //   if (Mail::failures()) {
-        //     echo "Basic Email Sent. Check your inbox.";
-        //   }
+       
         
     }
 }

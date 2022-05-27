@@ -18,6 +18,7 @@ class Category extends Model
         'title',
         'slug',
         'status',
+        'order_no',
     ];
     public function sluggable(): array
     {

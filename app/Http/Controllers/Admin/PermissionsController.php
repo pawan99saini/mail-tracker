@@ -4,41 +4,33 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Category;
-use Session;
-use Validator;
+use Spatie\Permission\Models\Permission;
 
-
-class CategoryController extends Controller
+class PermissionsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        $this->middleware('admin');
-    }
-
     public function index(Request $request)
     {
+        //
         $search =  $request->input('search');
         if($search!=""){
-            $category = Category::where(function ($query) use ($search){
-                $query->where('title', 'like', '%'.$search.'%');
+            $permissions = Permission::where(function ($query) use ($search){
+                $query->where('name', 'like', '%'.$search.'%');
                     
             })
             ->paginate(10);
-            $category->appends(['search' => $search]);
+            $permissions->appends(['search' => $search]);
         }
         else{
-            $category = Category::orderby('id','desc')->paginate(10);
+            $permissions = Permission::orderby('id','desc')->paginate(10);
 
         }
-        return view('admin.category.index')->with([
-            'category'  => $category
-        ]);
+       
+        return view('admin.permissions.index',compact('permissions'));
     }
 
     /**
@@ -48,9 +40,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-    
-        return view('admin.category.create');
-
+        //
+        return view('admin.permissions.create');
     }
 
     /**
@@ -61,23 +52,15 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-       //dd($request->all());
+        //
         $request->validate([
-            'title' => 'required',
-            'order_no' => 'required',
-			
-           
-        ]
-		);
+            'name' => 'required|unique:users,name'
+        ]);
 
-        $page = new Category;
-        $page->title = $request->title;
-        $page->order_no = $request->order_no;
-        $page->status = $request->status =='on'? 1 :0;
-        $page->save();
+        Permission::create($request->only('name'));
 
-
-        return redirect('admin/category')->with('success','New Record Add Successfully.....');
+        return redirect()->route('permissions.index')
+            ->withSuccess(__('Permission created successfully.'));
     }
 
     /**
@@ -99,8 +82,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::where('id',$id)->first();
-        return view('admin.category.edit', compact('category'));
+        //
+        $permission = Permission::find($id);
+        return view('admin.permissions.edit',compact('permission'));
     }
 
     /**
@@ -112,23 +96,15 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //
         $request->validate([
-            'title' => 'required',
-			 'order_no' => 'required'
-          
-        ],
-	
-		);
+            'name' => 'required|unique:permissions,name,'.$id
+        ]);
+        $permission = Permission::find($id);
+        $permission->update($request->only('name'));
 
-        
-        $page = Category::where('id',$id)->first();
-        $page->title = $request->title;
-		$page->order_no = $request->order_no;
-        $page->status = $request->status =='on'? 1 :0;
-        $page->save();
-        return redirect()->route('category.index')->withSuccess('You have successfully updated a Page!');
-
-       
+        return redirect()->route('permissions.index')
+            ->withSuccess(__('Permission updated successfully.'));
     }
 
     /**
@@ -141,6 +117,4 @@ class CategoryController extends Controller
     {
         //
     }
-	
-	
 }

@@ -6,14 +6,14 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Category
-				<a href="{{url('admin/category/create')}}" class="btn bg-gradient-primary btn-sm">Create Category</a>
+            <h1>User
+				<a href="{{url('admin/users/create')}}" class="btn bg-gradient-primary btn-sm">Create User</a>
 				</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Category</li>
+              <li class="breadcrumb-item active">User</li>
             </ol>
           </div>
         </div>
@@ -29,11 +29,11 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Category</h3>
+                <h3 class="card-title">User</h3>
                 <div class="card-tools">
-                  <form method="get" action="{{url('admin/category')}}">
+                  <form method="get" action="{{url('admin/users')}}">
                   <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="search" value="{{request()->get('search') ? request()->get('search') : ''}}" class="form-control float-right" placeholder="Search">
+                    <input type="text" name="search"  value="{{request()->get('search') ? request()->get('search') : ''}}" class="form-control float-right" placeholder="Search">
 
                     <div class="input-group-append">
                       <button type="submit" class="btn btn-default">
@@ -41,6 +41,7 @@
                       </button>
                     </div>
                   </div>
+                </form>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -48,24 +49,31 @@
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
-                      <th>ID</th>
-                      <th>Title</th>
-                      <th>Date</th>
-                      <th>Status</th>
-                      <th>Action</th>
+                      <th>No</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Roles</th>
+                      <th width="280px">Action</th>
                     </tr>
-                  </thead>
-                  <tbody>
-                      @foreach($category as $key=>$cat)
-                    <tr>
-                      <td>{{$key+ $category->firstItem() }}</td>
-                      <td>{{$cat->title}}</td>
-                      <td>{{$cat->created_at}}</td>
-                      <td>{{$cat->status==1 ? 'Active' : 'Deactive'}}</td>
-                      <td><a class="btn btn-app" href="{{route('category.edit',$cat->id)}}"><i class="fas fa-edit"></i> Edit</a>
-					  </td>
-                    </tr>
-                   @endforeach
+                    @foreach ($data as $key => $user)
+                     <tr>
+                       <td>{{$key+1 }}</td>
+                       <td>{{ $user->name }}</td>
+                       <td>{{ $user->email }}</td>
+                       <td>
+                         @if(!empty($user->getRoleNames()))
+                           @foreach($user->getRoleNames() as $v)
+                              <label class="badge badge-success">{{ $v }}</label>
+                           @endforeach
+                         @endif
+                       </td>
+                       <td>
+
+                          <a class="btn btn-app" href="{{route('users.edit',$user->id)}}"><i class="fas fa-edit"></i> Edit</a>
+
+                       </td>
+                     </tr>
+                    @endforeach
                   </tbody>
 				    
                 </table>
@@ -78,7 +86,7 @@
           </div>
         </div>
      <div class="row">
-	 {!! $category->links() !!}
+	 {!! $data->links() !!}
 	 </div>
       </div><!-- /.container-fluid -->
     </section>

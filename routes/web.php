@@ -28,16 +28,16 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //admin routes
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
-
     Route::match(['GET', 'POST'], '/', [App\Http\Controllers\Auth\AdminLoginController::class, 'login'])->name('admin');
-
     Route::group(['middleware' => ['admin']], function() {
-
         Route::get('dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
-
         Route::resource('category', '\App\Http\Controllers\Admin\CategoryController');
+        Route::get('template/getContent/{id}', [\App\Http\Controllers\Admin\TemplateController::class,'getContent']);
         Route::resource('template', '\App\Http\Controllers\Admin\TemplateController');
-     
+        Route::resource('emails', '\App\Http\Controllers\Admin\EmailController');
+        Route::resource('users', '\App\Http\Controllers\Admin\UserController');
+        Route::resource('roles', '\App\Http\Controllers\Admin\RoleController');
+        Route::resource('permissions', '\App\Http\Controllers\Admin\PermissionsController');
         Route::get('logout', [App\Http\Controllers\Auth\AdminLoginController::class, 'logout']);
     });
 });

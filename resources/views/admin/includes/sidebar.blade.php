@@ -27,39 +27,24 @@
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
-                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
         
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{url('admin/category')}}" class="nav-link">
             <i class="fa fa-list-alt" aria-hidden="true"></i>
               <p>
                 Category
-                <i class="fas fa-angle-left right"></i>
+     
               </p>
             </a>
-            <ul class="nav nav-treeview" >
-              <li class="nav-item">
-                <a href="{{url('admin/category')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>List</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{url('admin/category/create')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Add</p>
-                </a>
-              </li>
-            </ul>
           </li> 
           <li class="nav-item">
             <a href="#" class="nav-link">
-            <i class="fa fa-list-alt" aria-hidden="true"></i>
+            <i class="fa fa-envelope" aria-hidden="true"></i>
               <p>
-                Template
+                Emails
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -67,13 +52,42 @@
               <li class="nav-item">
                 <a href="{{url('admin/template')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>List</p>
+                  <p>Templates</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{url('admin/template/create')}}" class="nav-link">
+                <a href="{{url('admin/emails')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Add</p>
+                  <p>Manage Emails</p>
+                </a>
+              </li>
+            </ul>
+          </li>  
+		  <li class="nav-item">
+            <a href="#" class="nav-link">
+            <i class="fa fa-user" aria-hidden="true"></i>
+              <p>
+                Users
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview" >
+              <li class="nav-item">
+                <a href="{{url('admin/users')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Users</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('admin/roles')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Roles</p>
+                </a>
+              </li>
+			          <li class="nav-item">
+                <a href="{{url('admin/permissions')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Permission</p>
                 </a>
               </li>
             </ul>
