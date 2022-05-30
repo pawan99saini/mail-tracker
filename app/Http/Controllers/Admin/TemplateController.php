@@ -9,11 +9,7 @@ use App\Models\Category;
 
 class TemplateController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function index(Request $request)
     {
         $search =  $request->input('search');
@@ -35,11 +31,7 @@ class TemplateController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+  
     public function create()
     {
         //
@@ -47,12 +39,7 @@ class TemplateController extends Controller
         return view('admin.template.create',compact('category'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+  
 
     public function store(Request $request)
     {
@@ -76,12 +63,7 @@ class TemplateController extends Controller
         return redirect('admin/template')->with('success','New Record Add Successfully.....');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function show($id)
     {
         //
@@ -98,12 +80,7 @@ class TemplateController extends Controller
             'template' => $template
         ]);
     }
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         $category = Category::select('title', 'id')->where('status',1)->get();
@@ -111,13 +88,7 @@ class TemplateController extends Controller
         return view('admin.template.edit',compact('category','template'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -134,18 +105,13 @@ class TemplateController extends Controller
         $page->category_id = $request->category_id;
         $page->description = $request->desc;
 		$page->order_no = $request->order_no;
-        $page->status = $request->status =='on'? 1 :0;
+        $page->status = $request->status =='on' ? 1 :0;
         $page->save();
 
         return redirect('admin/template')->with('success','New Record Add Successfully.....');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy($id)
     {
         //

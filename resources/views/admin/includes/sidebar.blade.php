@@ -77,6 +77,12 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>Users</p>
                 </a>
+              </li> 
+              <li class="nav-item">
+                <a href="{{url('admin/usercategory')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>UserCategory</p>
+                </a>
               </li>
               <li class="nav-item">
                 <a href="{{url('admin/roles')}}" class="nav-link">

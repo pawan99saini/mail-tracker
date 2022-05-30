@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\UserCategory;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -44,7 +45,8 @@ class UserController extends Controller {
     public function create() {
         //
         $roles = Role::pluck('name','name')->all();
-        return view('admin.users.create',compact('roles'));
+        $usercategory = UserCategory::select('id','name')->where('status',1)->get();
+        return view('admin.users.create',compact('roles','usercategory'));
     }
 
     /**
@@ -57,6 +59,7 @@ class UserController extends Controller {
         //
         $this->validate($request, [
             'name' => 'required',
+            'category_id' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
             'roles' => 'required'
@@ -94,7 +97,8 @@ class UserController extends Controller {
         $user = User::find($id);
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
-        return view('admin.users.edit',compact('user','roles','userRole'));
+        $usercategory = UserCategory::select('id','name')->where('status',1)->get();
+        return view('admin.users.edit',compact('user','roles','userRole','usercategory'));
     }
 
     /**
@@ -109,6 +113,7 @@ class UserController extends Controller {
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
+            'category_id' => 'required',
             'password' => 'same:confirm-password',
             'roles' => 'required'
         ]);
@@ -140,58 +145,8 @@ class UserController extends Controller {
         //
     }
 
-    public function questions() {
-        $result = User::orderByDesc('id')->Paginate(10);
+  
 
-        $questions = DB::table('user_answers')
-                ->select('user_answers.*', 'u.name', 'q.question', 'q.option_1', 'q.option_2', 'q.option_3', 'q.option_4', 'q.correct_answer')
-                ->leftjoin("users as u", "u.id", "=", "user_answers.user_id")
-                ->leftjoin("questions as q", "q.id", "=", "user_answers.que_id")
-                ->Paginate(10);
-
-        return view('backend.user.questions', ['result' => $questions]);
-    }
-
-    public function send_email($id) {
-        $user = User::where('id', $id)->first();
-
-        if (!empty($user)) {
-//            User::where('id', $id)->update(['status' => 1, 'password' => Hash::make(123456)]);
-//            return redirect('admin/users')->with('success', 'User activated Successfully.....');
-
-            $password = uniqid();
-            $body = "Hello " . $user->name . "<br/>";
-            $body .= "<p>Your account is activated.</p>";
-            $body .= "<p>Click <a href='" . url('/') . "'>here</a> to login</p>";
-
-            $body .= "<p>Your login details is below</p>";
-            $body .= "<b>Email : </b>" . $user->email . "<br/>";
-            $body .= "<b>password : </b>" . $password;
-            $email['email'] = $user->email;
-            $email['body'] = $body;
-            $name = $user->name;
-            $email = $user->email;
-            Mail::send([], [], function($message) use ($name, $email,$body) {
-                $message->to($email, $name)
-                        ->subject('Subject')
-                        ->from('no-reply@optinsearch.com', 'DoNotReply')
-                        ->setBody($body, 'text/html');
-            });
-
-            /* $send = Mail::send([], [], function ($message) use ($email) {
-              $message->to($email['email'])
-              ->subject("Account Activation")
-              // here comes what you want
-              ->setBody($email['body'], 'text/html'); // assuming text/plain
-              }); */
-            // check for failures						// die('asas');
-            if (Mail::failures()) {
-                return redirect('admin/users')->with('error', 'Email sending failed');
-            } else {
-                User::where('id', $id)->update(['status' => 1, 'password' => Hash::make($password)]);
-                return redirect('admin/users')->with('success', 'User activated Successfully.....');
-            }
-        }
-    }
+ 
 
 }

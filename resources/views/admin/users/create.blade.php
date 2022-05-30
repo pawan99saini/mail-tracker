@@ -47,6 +47,20 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label>Select Category</label>
+                                        <select name="category_id" class="select2 form-control"  data-placeholder="Select Category" style="width: 100%;">
+                                          <option value="">Select Category</option>
+                                          @foreach($usercategory as $category)
+                                          <option value="{{$category->id}}">{{$category->name}}</option>
+                                          @endforeach
+                                        </select>
+                                        @if ($errors->has('category_id'))
+                                        <span class="text-danger">
+                                            {{ $errors->first('category_id') }}
+                                        </span>
+                                    @endif
+                                        </div>
+                                    <div class="form-group">
                                         <label for="Email" class="col-sm-2 col-form-label">Email</label>
                                         <div class="col-sm-10">
                                             <input type="email" class="form-control" name="email" id="Email"

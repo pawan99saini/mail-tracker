@@ -35,7 +35,8 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
         Route::get('template/getContent/{id}', [\App\Http\Controllers\Admin\TemplateController::class,'getContent']);
         Route::resource('template', '\App\Http\Controllers\Admin\TemplateController');
         Route::resource('emails', '\App\Http\Controllers\Admin\EmailController');
-        Route::resource('users', '\App\Http\Controllers\Admin\UserController');
+        Route::resource('users', '\App\Http\Controllers\Admin\UserController'); 
+        Route::resource('usercategory', '\App\Http\Controllers\Admin\UserCategoryController');
         Route::resource('roles', '\App\Http\Controllers\Admin\RoleController');
         Route::resource('permissions', '\App\Http\Controllers\Admin\PermissionsController');
         Route::get('logout', [App\Http\Controllers\Auth\AdminLoginController::class, 'logout']);
