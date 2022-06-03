@@ -6,13 +6,10 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>UserCategory</h1>
+                        <h1>Leads</h1>
                     </div>
                     <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">UserCategory</li>
-                        </ol>
+                        {{ Breadcrumbs::render('leads.create') }}
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
@@ -31,7 +28,7 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form class="form-horizontal" method="post" action="{{ url('admin/usercategory') }}">
+                            <form class="form-horizontal" method="post" action="{{ url('admin/leads') }}">
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
@@ -46,6 +43,45 @@
                                             @endif
                                         </div>
                                     </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="Email" class="col-sm-2 col-form-label">Email</label>
+                                        <div class="col-sm-10">
+                                            <input type="email" class="form-control" name="email" id="Email"
+                                                value="{{ old('email') }}" placeholder="Email">
+                                            @if ($errors->has('email'))
+                                                <span class="text-danger">
+                                                    {{ $errors->first('email') }}
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="mobile" class="col-sm-2 col-form-label">Mobile</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" name="mobile" id="mobile"
+                                                value="{{ old('mobile') }}" min="1">
+                                            @if ($errors->has('mobile'))
+                                                <span class="text-danger">
+                                                    {{ $errors->first('mobile') }}
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="form-group" >
+                                        <label>Select Category</label>
+                                        <select class="form-control" name="category_id">
+                                          <option value="">Select</option>
+                                          @foreach($category as $cat)
+                                          <option value="{{$cat->id}}" {{ $cat->id ==old('category_id') ? 'selected' : ''}} >{{$cat->name}}</option>
+                                          @endforeach
+                                        </select>
+                                        @if ($errors->has('category_id'))
+                                    <span class="text-danger">
+                                    {{ $errors->first('category_id') }}
+                                    </span>
+                                    @endif
+                                      </div>
                                     Status
                                     <div class="material-switch pull-right">
                                         <input id="someSwitchOptionSuccess" name="status" type="checkbox" checked />

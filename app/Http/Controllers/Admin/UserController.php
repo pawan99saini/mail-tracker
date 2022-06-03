@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\UserCategory;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -45,8 +44,7 @@ class UserController extends Controller {
     public function create() {
         //
         $roles = Role::pluck('name','name')->all();
-        $usercategory = UserCategory::select('id','name')->where('status',1)->get();
-        return view('admin.users.create',compact('roles','usercategory'));
+        return view('admin.users.create',compact('roles'));
     }
 
     /**
@@ -59,7 +57,6 @@ class UserController extends Controller {
         //
         $this->validate($request, [
             'name' => 'required',
-            'category_id' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
             'roles' => 'required'
@@ -97,8 +94,7 @@ class UserController extends Controller {
         $user = User::find($id);
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
-        $usercategory = UserCategory::select('id','name')->where('status',1)->get();
-        return view('admin.users.edit',compact('user','roles','userRole','usercategory'));
+        return view('admin.users.edit',compact('user','roles','userRole'));
     }
 
     /**
@@ -113,7 +109,6 @@ class UserController extends Controller {
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
-            'category_id' => 'required',
             'password' => 'same:confirm-password',
             'roles' => 'required'
         ]);

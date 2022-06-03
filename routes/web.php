@@ -36,7 +36,10 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
         Route::resource('template', '\App\Http\Controllers\Admin\TemplateController');
         Route::resource('emails', '\App\Http\Controllers\Admin\EmailController');
         Route::resource('users', '\App\Http\Controllers\Admin\UserController'); 
-        Route::resource('usercategory', '\App\Http\Controllers\Admin\UserCategoryController');
+        Route::resource('leads', '\App\Http\Controllers\Admin\LeadsController'); 
+        Route::resource('leadscategory', '\App\Http\Controllers\Admin\LeadCategoryController');
+        Route::resource('groups', '\App\Http\Controllers\Admin\GroupController');
+        Route::resource('emailscheduler', '\App\Http\Controllers\Admin\EmailSchedulerController');
         Route::resource('roles', '\App\Http\Controllers\Admin\RoleController');
         Route::resource('permissions', '\App\Http\Controllers\Admin\PermissionsController');
         Route::get('logout', [App\Http\Controllers\Auth\AdminLoginController::class, 'logout']);

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\SentEmail;
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Lead;
 use Mail;
 use File;
 
@@ -44,7 +45,7 @@ class EmailController extends Controller
     {
         //
         $categories = Category::select('id','title')->where('status',1)->get();
-        $users = User::select('id','email')->where('status',1)->get();
+        $users = Lead::select('id','email')->where('status',1)->get();
         return view('admin.emails.compose',compact('categories','users'));
     }
 
@@ -87,20 +88,28 @@ class EmailController extends Controller
         $data['filename'] = $filename;
 
     }
-    //print_r($data);die; 
+   // print_r($data);die; 
     //send mail 
-    file_put_contents(resource_path('views/emails/email-template.blade.php'), $data['message']);
+    foreach($data['to'] as $val)
+    {
+    $email = $val;
+    $name =   Lead::where('email',$email)->value('name');
+    $arr1 = ['Name','Email'];
+    $arr2 = [$name,$email];
+    $body = str_replace($arr1, $arr2, $data['message']);
+    file_put_contents(resource_path('views/emails/email-template.blade.php'), $body);
 
-Mail::send('emails.email-template', ['data' => $data], function($message) use ($data)
+Mail::send('emails.email-template', ['data' => $data], function($message) use ($data,$email)
 {    
     if($data['filename']) {
-        $message->to($data['to'])->subject($data['subject'])->attach($data['filename']); 
+        $message->to($email)->subject($data['subject'])->attach($data['filename']); 
     }
     else{
-        $message->to($data['to'])->subject($data['subject']); 
+        $message->to($email)->subject($data['subject']); 
     }
        
 });
+    }
 return redirect('admin/emails')->with('success','New Record Add Successfully.....');
     }
 

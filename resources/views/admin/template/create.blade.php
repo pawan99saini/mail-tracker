@@ -9,10 +9,7 @@
             <h1>Template</h1>
           </div>
           <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Template</li>
-            </ol>
+            {{ Breadcrumbs::render('template.create') }}
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -72,8 +69,11 @@
                     @endif
                       </div>
                       <div class="form-group">
+                      </br>
+                      <span class="addElement btn-dark btn-sm">Name</span>
+                      <span class="addElement btn-dark btn-sm">Email</span>
                         <label>Description</label>
-                        <textarea class="form-control textarea" name="desc" rows="3" placeholder="Enter ..."></textarea>
+                        <textarea class="form-control textarea mb-5" name="desc" rows="3" placeholder="Enter ..."></textarea>
                         @if ($errors->has('desc'))
                     <span class="text-danger">
                     {{ $errors->first('desc') }}

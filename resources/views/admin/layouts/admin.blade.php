@@ -4,13 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}" />
-  <title>Dashboard</title>
+  <title>@yield('title')</title>
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{asset('assets/css/all.min.css')}}">
   <!-- icheck bootstrap -->
   <link rel="stylesheet" href="{{asset('assets/css/icheck-bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/css/tempusdominus-bootstrap-4.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('assets/css/adminlte.min.css')}}">
   <link rel="stylesheet" href="{{asset('assets/css/select2.min.css')}}">
@@ -97,6 +98,9 @@
 <script src="{{asset('assets/js/select2.full.min.js')}}"></script>
 <script src="{{asset('assets/ckeditor/ckeditor.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/js/dashboard3.js')}}"></script>
+<script src="{{asset('assets/js/moment.min.js')}}"></script>
+<script src="{{asset('assets/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+
 
 
 <script>
@@ -117,6 +121,29 @@ var site_url = "{{url('/')}}";
     })
 
     $('.select2').select2()
+ //Date and time picker
+ $('#reservationdatetime').datetimepicker({ icons: { time: 'far fa-clock',
+ 
+},format: 'YYYY-MM-DD hh:mm',
+minDate:new Date()
+
+ });
+
+ $('.delete').on('click', function (event) {
+    event.preventDefault();
+    var c = $(this);
+    swal({
+        title: 'Are you sure?',
+        text: 'This record and it`s details will be permanantly deleted!',
+        icon: 'warning',
+        buttons: ["Cancel", "Yes!"],
+    }).then(function(value) {
+        if (value) {
+           
+            c.closest('form').submit();
+        }
+    });
+});
 
     });
 

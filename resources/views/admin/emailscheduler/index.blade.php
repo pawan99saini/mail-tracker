@@ -6,12 +6,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>User
-				<a href="{{url('admin/users/create')}}" class="btn bg-gradient-primary btn-sm">Create User</a>
+            <h1>EmailScheduler
+				<a href="{{url('admin/emailscheduler/create')}}" class="btn bg-gradient-primary btn-sm">Create EmailScheduler</a>
 				</h1>
           </div>
           <div class="col-sm-6">
-            {{ Breadcrumbs::render('users.index') }}
+            {{ Breadcrumbs::render('emails.index') }}
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -26,9 +26,9 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">User</h3>
+                <h3 class="card-title">EmailScheduler</h3>
                 <div class="card-tools">
-                  <form method="get" action="{{url('admin/users')}}">
+                  <form method="get" action="{{url('admin/emailscheduler')}}">
                   <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="search"  value="{{request()->get('search') ? request()->get('search') : ''}}" class="form-control float-right" placeholder="Search">
 
@@ -47,28 +47,37 @@
                   <thead>
                     <tr>
                       <th>No</th>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Roles</th>
-                      <th width="280px">Action</th>
+                      <th>Title</th>
+                      <th>Template</th>
+                      <th>Customer Group</th>
+                      <th>Schedule Date Time</th>
+                      <th>Status</th>
+                     
                     </tr>
-                    @foreach ($data as $key => $user)
+                    @foreach ($data as $key => $val)
+                    @php
+                    switch ($val->status) {
+                      case 0:
+                          $status = '<span class="badge bg-primary">Pending</span>';
+                          break;
+                      case 1:
+                      $status = '<span class="badge bg-success">Pending</span>';
+                          break;
+                      case 2:
+                      $status = '<span class="badge bg-danger">Danger</span>';
+                          break;
+                  }
+                    
+                        
+                    @endphp
                      <tr>
                        <td>{{$key+1 }}</td>
-                       <td>{{ $user->name }}</td>
-                       <td>{{ $user->email }}</td>
-                       <td>
-                         @if(!empty($user->getRoleNames()))
-                           @foreach($user->getRoleNames() as $v)
-                              <label class="badge badge-success">{{ $v }}</label>
-                           @endforeach
-                         @endif
-                       </td>
-                       <td>
-
-                          <a class="btn btn-app" href="{{route('users.edit',$user->id)}}"><i class="fas fa-edit"></i> Edit</a>
-
-                       </td>
+                       <td>{{ $val->title }}</td>
+                       <td>{{ $val->templates->title }}</td>
+                       <td>{{ $val->groups->title }}</td>
+                       <td>{{ $val->schedule_time }}</td>
+                       <td>{!! $status !!}</td>
+                       
                      </tr>
                     @endforeach
                   </tbody>

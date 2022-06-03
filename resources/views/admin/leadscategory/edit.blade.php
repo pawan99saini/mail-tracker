@@ -1,6 +1,4 @@
 @extends('admin.layouts.admin')
-@section('title', 'Edit Category');
-
 @section('content')
 <div class="content-wrapper" style="min-height: 1302.12px;">
     <!-- Content Header (Page header) -->
@@ -8,10 +6,10 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Category</h1>
+            <h1>Leads Category</h1>
           </div>
           <div class="col-sm-6">
-            {{ Breadcrumbs::render('category.edit',$category) }}
+            {{ Breadcrumbs::render('leadscategory.edit',$leadscategory) }}
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -30,35 +28,25 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form class="form-horizontal" method="post" action="{{route('category.update',$category->id)}}">
+              <form class="form-horizontal" method="post" action="{{route('leadscategory.update',$leadscategory->id)}}">
                   @csrf
                   @method('PUT')
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" name="title" id="inputEmail3" value="{{$category->title}}"placeholder="Title" >
-                      @if ($errors->has('title'))
+                      <input type="text" class="form-control" name="name" id="inputEmail3" value="{{$leadscategory->name}}" placeholder="Title" >
+                      @if ($errors->has('name'))
                     <span class="text-danger">
-                    {{ $errors->first('title') }}
+                    {{ $errors->first('name') }}
                     </span>
                     @endif
                     </div>
                   </div>
-				  <div class="form-group">
-                    <label for="order_no" class="col-sm-2 col-form-label">Order</label>
-                    <div class="col-sm-10">
-                      <input type="number" class="form-control" name="order_no" id="order_no" value="{{$category->order_no}}" min="1">
-                      @if ($errors->has('order_no'))
-                    <span class="text-danger">
-                    {{ $errors->first('order_no') }}
-                    </span>
-                    @endif
-                    </div>
-                  </div>
+				
                   Status
                         <div class="material-switch pull-right">
-                            <input id="someSwitchOptionSuccess" name="status" type="checkbox" {{$category->status==1 ? 'checked':''}}/>
+                            <input id="someSwitchOptionSuccess" name="status" type="checkbox" {{$leadscategory->status==1 ? 'checked':''}}/>
                             <label for="someSwitchOptionSuccess" class="label-success"></label>
                         </div>
                 </div>

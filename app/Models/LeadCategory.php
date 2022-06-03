@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class UserCategory extends Model
+class LeadCategory extends Model
 {
     use HasFactory;
     use Sluggable;

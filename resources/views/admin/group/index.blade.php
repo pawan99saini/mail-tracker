@@ -6,12 +6,13 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Permission
-				<a href="{{url('admin/permissions/create')}}" class="btn bg-gradient-primary btn-sm">Create Permission</a>
-				</h1>
+            <h1>Group
+			<a href="{{url('admin/groups/create')}}" class="btn bg-gradient-primary btn-sm">Create Group</a>
+
+			</h1>
           </div>
           <div class="col-sm-6">
-            {{ Breadcrumbs::render('permissions.index') }}
+            {{ Breadcrumbs::render('groups.index') }}
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -26,9 +27,10 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Permission</h3>
+                <h3 class="card-title">Group</h3>
+
                 <div class="card-tools">
-                  <form method="get" action="{{url('admin/permissions')}}">
+                  <form method="GET" action="{{url('admin/groups')}}">
                   <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="search" value="{{request()->get('search') ? request()->get('search') : ''}}" class="form-control float-right" placeholder="Search">
 
@@ -38,7 +40,7 @@
                       </button>
                     </div>
                   </div>
-                </form>
+                  </form>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -47,35 +49,34 @@
                   <thead>
                     <tr>
                       <th>ID</th>
-                      <th>Name</th>
+                      <th>Title</th>
                       <th>Date</th>
+                      <th>Status</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                      @foreach($permissions as $key=>$permission)
+                      @foreach($data as $key=>$t)
                     <tr>
-                      <td>{{$key+ $permissions->firstItem() }}</td>
-                      <td>{{$permission->name}}</td>
-                      <td>{{$permission->created_at}}</td>
-                      <td>{{$permission->status==1 ? 'Active' : 'Deactive'}}</td>
-                      <td><a class="btn btn-app" href="{{route('permissions.edit',$permission->id)}}"><i class="fas fa-edit"></i> Edit</a>
+                        <td>{{$key+ $data->firstItem() }}</td>
+                      <td>{{$t->title}}</td>
+                      <td>{{$t->created_at}}</td>
+                      <td>{{$t->status==1 ? 'Active' : 'Deactive'}}</td>
+                      <td>
+					  <a class="btn btn-app" href="{{route('groups.edit',$t->id)}}"><i class="fas fa-edit"></i> Edit</a>
 					  </td>
                     </tr>
                    @endforeach
                   </tbody>
-				    
                 </table>
-				
               </div>
-			
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
           </div>
         </div>
-     <div class="row">
-	 {!! $permissions->links() !!}
+       <div class="row">
+	 {!! $data->links() !!}
 	 </div>
       </div><!-- /.container-fluid -->
     </section>

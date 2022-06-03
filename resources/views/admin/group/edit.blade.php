@@ -6,13 +6,10 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>UserCategory</h1>
+                        <h1>Group</h1>
                     </div>
                     <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">UserCategory</li>
-                        </ol>
+                        {{ Breadcrumbs::render('groups.edit',$groups) }}
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
@@ -31,29 +28,43 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form class="form-horizontal" method="post"
-                                action="{{ route('usercategory.update', $usercategory->id) }}">
+                            <form class="form-horizontal" method="post" action="{{ route('groups.update', $group->id) }}">
                                 @csrf
                                 @method('PUT')
                                 <div class="card-body">
                                     <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
+                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="name" id="inputEmail3"
-                                                value="{{ $usercategory->name }}" placeholder="Name">
-                                            @if ($errors->has('name'))
+                                            <input type="text" class="form-control" name="title" id="inputEmail3"
+                                                value="{{ $group->title }}" placeholder="Title">
+                                            @if ($errors->has('title'))
                                                 <span class="text-danger">
-                                                    {{ $errors->first('name') }}
+                                                    {{ $errors->first('title') }}
                                                 </span>
                                             @endif
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label>Select Category</label>
+                                        <select class="form-control" name="category_id">
+                                            <option value="">Select</option>
+                                            @foreach ($category as $cat)
+                                                <option value="{{ $cat->id }}"
+                                                    {{ $cat->id == $group->category_id ? 'selected' : '' }}>
+                                                    {{ $cat->name }}</option>
+                                            @endforeach
 
-
+                                        </select>
+                                        @if ($errors->has('category_id'))
+                                            <span class="text-danger">
+                                                {{ $errors->first('category_id') }}
+                                            </span>
+                                        @endif
+                                    </div>
                                     Status
                                     <div class="material-switch pull-right">
                                         <input id="someSwitchOptionSuccess" name="status" type="checkbox"
-                                            {{ $usercategory->status == 1 ? 'checked' : '' }} />
+                                            {{ $group->status == 1 ? 'checked' : '' }} />
                                         <label for="someSwitchOptionSuccess" class="label-success"></label>
                                     </div>
                                 </div>

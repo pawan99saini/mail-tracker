@@ -10,6 +10,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.filebrowserImageUploadUrl = null;
        config.filebrowserImageUpload = null;
          config.ImageUpload = null;
-	config.removePlugins = 'elementspath,save,image,flash,iframe,link,smiley,tabletools,find,pagebreak,templates,about,maximize,showblocks,newpage,language,exportpdf,Upload Image';
-    config.removeButtons = 'Copy,Cut,Paste,Undo,Redo,Print,Form,TextField,Textarea,Button,SelectAll,NumberedList,BulletedList,CreateDiv,Table,PasteText,PasteFromWord,Select,HiddenField,Image';
+		 
+	config.removePlugins = 'elementspath,save,image,flash,iframe,link,smiley,tabletools,find,pagebreak,templates,about,maximize,showblocks,newpage,language,exportpdf,easyimage';
+    config.removeButtons = 'Copy,Cut,Paste,Undo,Redo,Print,Form,TextField,Textarea,Button,SelectAll,NumberedList,BulletedList,CreateDiv,Table,PasteText,PasteFromWord,Select,HiddenField,Image,Radio,ImageButton';
 };

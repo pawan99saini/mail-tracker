@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_categories', function (Blueprint $table) {
+        Schema::create('email_schedulers', function (Blueprint $table) {
             $table->id();
-            $table->string('name',100)->nullable();
-            $table->string('slug',100)->nullable();
+            $table->string('title',100)->nullable();
+            $table->integer('group_id');
+            $table->integer('template_id');
+            $table->dateTime('schedule_time');
             $table->tinyInteger('status')->default(0);
             $table->softDeletes();
             $table->timestamps();
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_categories');
+        Schema::dropIfExists('email_schedulers');
     }
 };

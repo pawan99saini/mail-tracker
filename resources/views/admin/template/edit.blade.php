@@ -9,10 +9,7 @@
             <h1>Template</h1>
           </div>
           <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Template</li>
-            </ol>
+            {{ Breadcrumbs::render('template.edit',$template) }}
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -63,6 +60,10 @@
                       </div>
                       <div class="form-group">
                         <label>Description</label>
+                      </br>
+                      <span class="addElement btn-dark btn-sm">Name</span>
+                      <span class="addElement btn-dark btn-sm">Email</span>
+                        
                         <textarea class="form-control textarea" name="desc" rows="3" placeholder="Enter ...">{{$template->description}}</textarea>
                         @if ($errors->has('desc'))
                     <span class="text-danger">

@@ -1,5 +1,7 @@
 @extends('admin.layouts.admin')
+@section('title', 'Dashboard')
 @section('content')
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -7,13 +9,11 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Email</h1>
+            
+            <h1>Dashboard</h1>
           </div>
           <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Email</li>
-            </ol>
+            {{ Breadcrumbs::render('dashboard') }}
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -28,7 +28,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Email</h3>
+                <h3 class="card-title">Dashboard</h3>
 
                 <div class="card-tools">
                   <form method="GET" action="{{url('admin/dashboard')}}">

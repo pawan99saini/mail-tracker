@@ -18,5 +18,15 @@ class Template extends Model
         'description',
         'status',
     ];
+
+    public function emails()
+    {
+        return $this->hasMany(EmailScheduler::class);
+    } 
+    
+    public function schedules()
+    {
+        return $this->hasMany(EmailScheduler::class);
+    }
    
 }

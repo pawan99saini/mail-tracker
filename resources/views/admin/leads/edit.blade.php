@@ -6,10 +6,10 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>User</h1>
+                        <h1>Leads</h1>
                     </div>
                     <div class="col-sm-6">
-                        {{ Breadcrumbs::render('users.create') }}
+                        {{ Breadcrumbs::render('leads.edit',$lead) }}
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
@@ -28,14 +28,15 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form class="form-horizontal" method="post" action="{{ url('admin/users') }}">
+                            <form class="form-horizontal" method="post"
+                            action="{{route('leads.update',$lead->id)}}">
                                 @csrf
-                                <div class="card-body">
+                                @method('PUT') <div class="card-body">
                                     <div class="form-group">
                                         <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" name="name" id="inputEmail3"
-                                                value="{{ old('name') }}" placeholder="Name">
+                                                value="{{ $lead->name }}" placeholder="Name">
                                             @if ($errors->has('name'))
                                                 <span class="text-danger">
                                                     {{ $errors->first('name') }}
@@ -43,12 +44,12 @@
                                             @endif
                                         </div>
                                     </div>
-                                    
+                                
                                     <div class="form-group">
                                         <label for="Email" class="col-sm-2 col-form-label">Email</label>
                                         <div class="col-sm-10">
                                             <input type="email" class="form-control" name="email" id="Email"
-                                                value="{{ old('email') }}" placeholder="Email">
+                                                value="{{ $lead->email }}" placeholder="Email">
                                             @if ($errors->has('email'))
                                                 <span class="text-danger">
                                                     {{ $errors->first('email') }}
@@ -60,7 +61,7 @@
                                         <label for="mobile" class="col-sm-2 col-form-label">Mobile</label>
                                         <div class="col-sm-10">
                                             <input type="number" class="form-control" name="mobile" id="mobile"
-                                                value="{{ old('mobile') }}" min="1">
+                                                value="{{ $lead->mobile }}" min="1">
                                             @if ($errors->has('mobile'))
                                                 <span class="text-danger">
                                                     {{ $errors->first('mobile') }}
@@ -68,53 +69,31 @@
                                             @endif
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="password" class="col-sm-2 col-form-label">Password</label>
-                                        <div class="col-sm-10">
-                                            <input type="password" class="form-control" name="password" id="password"
-                                                value="{{ old('password') }}" >
-                                            @if ($errors->has('password'))
-                                                <span class="text-danger">
-                                                    {{ $errors->first('password') }}
-                                                </span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="confirm-password" class="col-sm-2 col-form-label">Confirm Password</label>
-                                        <div class="col-sm-10">
-                                            <input type="password" class="form-control" name="confirm-password" id="confirm-password"
-                                                value="{{ old('confirm-password') }}" >
-                                            @if ($errors->has('confirm-password'))
-                                                <span class="text-danger">
-                                                    {{ $errors->first('confirm-password') }}
-                                                </span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                      <label>Select Role</label>
-                                      <select name="roles[]" class="select2" multiple="multiple" data-placeholder="Select Role" style="width: 100%;">
-                                        <option value="">Select Role</option>
-                                        @foreach($roles as $role)
-                                        <option value="{{$role}}">{{$role}}</option>
-                                        @endforeach
-                                      </select>
-                                      @if ($errors->has('roles'))
-                                      <span class="text-danger">
-                                          {{ $errors->first('roles') }}
-                                      </span>
-                                  @endif
+                                  
+                                    <div class="form-group" >
+                                        <label>Select Category</label>
+                                        <select class="form-control" name="category_id">
+                                          <option value="">Select</option>
+                                          @foreach($category as $cat)
+                                          <option value="{{$cat->id}}" {{ $cat->id ==$lead->category_id ? 'selected' : ''}} >{{$cat->name}}</option>
+                                          @endforeach
+                                        </select>
+                                        @if ($errors->has('category_id'))
+                                    <span class="text-danger">
+                                    {{ $errors->first('category_id') }}
+                                    </span>
+                                    @endif
                                       </div>
                                     Status
                                     <div class="material-switch pull-right">
-                                        <input id="someSwitchOptionSuccess" name="status" type="checkbox" checked />
+                                        <input id="someSwitchOptionSuccess" name="status" type="checkbox"
+                                            {{ $lead->status == 1 ? 'checked' : '' }} />
                                         <label for="someSwitchOptionSuccess" class="label-success"></label>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer">
-                                    <button type="submit" class="btn btn-info">Add</button>
+                                    <button type="submit" class="btn btn-info">Update</button>
 
                                 </div>
                                 <!-- /.card-footer -->

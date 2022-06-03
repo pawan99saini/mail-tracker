@@ -6,12 +6,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Permission
-				<a href="{{url('admin/permissions/create')}}" class="btn bg-gradient-primary btn-sm">Create Permission</a>
+            <h1>Leads
+				<a href="{{url('admin/leads/create')}}" class="btn bg-gradient-primary btn-sm">Create Leads</a>
 				</h1>
           </div>
           <div class="col-sm-6">
-            {{ Breadcrumbs::render('permissions.index') }}
+            {{ Breadcrumbs::render('leads.index') }}
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -26,11 +26,11 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Permission</h3>
+                <h3 class="card-title">Leads</h3>
                 <div class="card-tools">
-                  <form method="get" action="{{url('admin/permissions')}}">
+                  <form method="get" action="{{url('admin/users')}}">
                   <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="search" value="{{request()->get('search') ? request()->get('search') : ''}}" class="form-control float-right" placeholder="Search">
+                    <input type="text" name="search"  value="{{request()->get('search') ? request()->get('search') : ''}}" class="form-control float-right" placeholder="Search">
 
                     <div class="input-group-append">
                       <button type="submit" class="btn btn-default">
@@ -46,23 +46,23 @@
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
-                      <th>ID</th>
+                      <th>No</th>
                       <th>Name</th>
-                      <th>Date</th>
-                      <th>Action</th>
+                      <th>Email</th>
+                      <th>Mobile</th>
+                      <th width="280px">Action</th>
                     </tr>
-                  </thead>
-                  <tbody>
-                      @foreach($permissions as $key=>$permission)
-                    <tr>
-                      <td>{{$key+ $permissions->firstItem() }}</td>
-                      <td>{{$permission->name}}</td>
-                      <td>{{$permission->created_at}}</td>
-                      <td>{{$permission->status==1 ? 'Active' : 'Deactive'}}</td>
-                      <td><a class="btn btn-app" href="{{route('permissions.edit',$permission->id)}}"><i class="fas fa-edit"></i> Edit</a>
-					  </td>
-                    </tr>
-                   @endforeach
+                    @foreach ($data as $key => $val)
+                     <tr>
+                       <td>{{$key+1 }}</td>
+                       <td>{{ $val->name }}</td>
+                       <td>{{ $val->email }}</td>
+                       <td>{{ $val->mobile }}</td>
+                       <td>
+                          <a class="btn btn-app" href="{{route('leads.edit',$val->id)}}"><i class="fas fa-edit"></i> Edit</a>
+                       </td>
+                     </tr>
+                    @endforeach
                   </tbody>
 				    
                 </table>
@@ -75,7 +75,7 @@
           </div>
         </div>
      <div class="row">
-	 {!! $permissions->links() !!}
+	 {!! $data->links() !!}
 	 </div>
       </div><!-- /.container-fluid -->
     </section>

@@ -23,7 +23,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
-            <a href="{{url('admin/dashboard')}}" class="nav-link active">
+            <a href="{{url('admin/dashboard')}}" class="nav-link {{ (request()->is('admin/dashboard')) ? 'active' : '' }}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -32,7 +32,7 @@
         
           </li>
           <li class="nav-item">
-            <a href="{{url('admin/category')}}" class="nav-link">
+            <a href="{{url('admin/category')}}" class="nav-link {{ (request()->is('admin/category')) ? 'active' : '' }}">
             <i class="fa fa-list-alt" aria-hidden="true"></i>
               <p>
                 Category
@@ -41,7 +41,7 @@
             </a>
           </li> 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link {{ (request()->is('admin/template') || request()->is('admin/emails')) ? 'active' : '' }}">
             <i class="fa fa-envelope" aria-hidden="true"></i>
               <p>
                 Emails
@@ -50,13 +50,13 @@
             </a>
             <ul class="nav nav-treeview" >
               <li class="nav-item">
-                <a href="{{url('admin/template')}}" class="nav-link">
+                <a href="{{url('admin/template')}}" class="nav-link {{ (request()->is('admin/template')) ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Templates</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{url('admin/emails')}}" class="nav-link">
+                <a href="{{url('admin/emails')}}" class="nav-link {{ (request()->is('admin/emails')) ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Manage Emails</p>
                 </a>
@@ -64,7 +64,7 @@
             </ul>
           </li>  
 		  <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link {{ (request()->is('admin/users') || request()->is('admin/roles') || request()->is('admin/permissions')) ? 'active' : '' }}">
             <i class="fa fa-user" aria-hidden="true"></i>
               <p>
                 Users
@@ -73,17 +73,11 @@
             </a>
             <ul class="nav nav-treeview" >
               <li class="nav-item">
-                <a href="{{url('admin/users')}}" class="nav-link">
+                <a href="{{url('admin/users')}}" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Users</p>
                 </a>
               </li> 
-              <li class="nav-item">
-                <a href="{{url('admin/usercategory')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>UserCategory</p>
-                </a>
-              </li>
               <li class="nav-item">
                 <a href="{{url('admin/roles')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -97,6 +91,48 @@
                 </a>
               </li>
             </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link {{ (request()->is('admin/leads') || request()->is('admin/leadscategory')) ? 'active' : '' }}">
+            <i class="fa fa-bullhorn" aria-hidden="true"></i>
+              <p>
+                Leads
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview" >
+              <li class="nav-item">
+                <a href="{{url('admin/leads')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Leads</p>
+                </a>
+              </li> 
+              <li class="nav-item">
+                <a href="{{url('admin/leadscategory')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>LeadsCategory</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="{{url('admin/groups')}}" class="nav-link {{ (request()->is('admin/groups')) ? 'active' : '' }}">
+            <i class="fa fa-object-group" aria-hidden="true"></i>
+              <p>
+                Group
+                
+              </p>
+            </a>
+        
+          </li> 
+          <li class="nav-item">
+            <a href="{{url('admin/emailscheduler')}}" class="nav-link {{ (request()->is('admin/emailscheduler')) ? 'active' : '' }}">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+              <p>
+                EmailScheduler
+               
+              </p>
+            </a>
           </li>
         </ul>
       </nav>

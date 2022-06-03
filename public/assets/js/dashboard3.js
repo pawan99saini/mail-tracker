@@ -188,3 +188,18 @@ function getContent(template_id)
 function insertIntoCkeditor(str){
   CKEDITOR.instances['message'].setData(str);
 }
+
+
+let elements = document.getElementsByClassName("addElement");
+
+    for(let i = 0; i < elements.length; i++) {
+        elements[i].onclick = function () {
+            var name = elements[i].closest('.form-group').getElementsByTagName('textarea')[0].name
+           insertAtCaret(elements[i].innerHTML,name)
+        }
+    }
+
+    function insertAtCaret(myValue,name){
+      myValue = myValue.trim();
+      CKEDITOR.instances[name].insertText(myValue);
+  };

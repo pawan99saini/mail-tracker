@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\UserCategory;
+use App\Models\Lead;
+use App\Models\LeadCategory;
 
-class UserCategoryController extends Controller
+class LeadsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,21 +19,19 @@ class UserCategoryController extends Controller
         //
         $search =  $request->input('search');
         if($search!=""){
-            $usercategory = UserCategory::where(function ($query) use ($search){
-                $query->where('title', 'like', '%'.$search.'%');
+            $result = Lead::where(function ($query) use ($search){
+                $query->where('name', 'like', '%'.$search.'%');
                     
             })
             ->paginate(10);
-            $usercategory->appends(['search' => $search]);
+            $result->appends(['search' => $search]);
         }
         else{
-            $usercategory = UserCategory::orderby('id','desc')->paginate(10);
+            $result = Lead::orderby('id','desc')->paginate(10);
 
         }
-      
-        return view('admin.usercategory.index')->with([
-            'usercategory'  => $usercategory
-        ]);
+       
+        return view('admin.leads.index', ['data' => $result]);
     }
 
     /**
@@ -43,7 +42,8 @@ class UserCategoryController extends Controller
     public function create()
     {
         //
-        return view('admin.usercategory.create');
+        $category = LeadCategory::select('id','name')->where('status',1)->get();
+        return view('admin.leads.create',compact('category'));
     }
 
     /**
@@ -55,20 +55,16 @@ class UserCategoryController extends Controller
     public function store(Request $request)
     {
         //
-        $request->validate([
+        $this->validate($request, [
             'name' => 'required',
-			
-           
-        ]
-		);
+            'email' => 'required|email|unique:leads,email',
+        ]);
+    
+        $input = $request->all();
+        $input['status'] =  $input['status'] ? 1 : 0 ;
 
-        $page = new UserCategory;
-        $page->name = $request->name;
-        $page->status = $request->status =='on'? 1 :0;
-        $page->save();
-
-
-        return redirect('admin/usercategory')->with('success','New Record Add Successfully.....');
+        Lead::create($input);
+        return redirect()->route('leads.index')->with('success','LeadCategory created successfully');
     }
 
     /**
@@ -91,8 +87,9 @@ class UserCategoryController extends Controller
     public function edit($id)
     {
         //
-        $usercategory = UserCategory::where('id',$id)->first();
-        return view('admin.usercategory.edit',compact('usercategory'));
+        $lead= Lead::find($id);
+        $category = LeadCategory::select('id','name')->where('status',1)->get();
+        return view('admin.leads.edit',compact('category','lead'));
     }
 
     /**
@@ -105,19 +102,17 @@ class UserCategoryController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $request->validate([
+        $this->validate($request, [
             'name' => 'required',
-            
+            'email' => 'required|email|unique:leads,email,'.$id,
            
-        ]
-		);
-
-        $page = UserCategory::where('id',$id)->first();
-        $page->name = $request->name;
-        $page->status = $request->status =='on' ? 1 :0;
-        $page->save();
-
-        return redirect('admin/usercategory')->with('success','Update Successfully.....');
+        ]);
+    
+        $input = $request->all();
+        $input['status'] =  $input['status'] ? 1 : 0 ;
+        $user = Lead::find($id);
+        $user->update($input);
+        return redirect()->route('leads.index')->with('success','LeadCategory update successfully');  
     }
 
     /**

@@ -1,4 +1,5 @@
 @extends('admin.layouts.admin')
+@section('title', 'Category');
 @section('content')
 <div class="content-wrapper" style="min-height: 1302.12px;">
     <!-- Content Header (Page header) -->
@@ -11,10 +12,7 @@
 				</h1>
           </div>
           <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Category</li>
-            </ol>
+            {{ Breadcrumbs::render('category.index') }}
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -62,7 +60,13 @@
                       <td>{{$cat->title}}</td>
                       <td>{{$cat->created_at}}</td>
                       <td>{{$cat->status==1 ? 'Active' : 'Deactive'}}</td>
-                      <td><a class="btn btn-app" href="{{route('category.edit',$cat->id)}}"><i class="fas fa-edit"></i> Edit</a>
+                      <td>
+                        <a class="btn btn-sm btn-primary" href="{{route('category.edit',$cat->id)}}"><i class="fas fa-edit"></i></a>
+                        <form  action="{{route('category.destroy',$cat->id)}}" method="POST">
+                          @csrf
+                          @method('DELETE')
+                          <a href="javascript:" class="btn btn-sm btn-danger delete"><i class="fas fa-trash"></i></a>
+                      </form>
 					  </td>
                     </tr>
                    @endforeach

@@ -6,16 +6,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>UserCategory
-			<a href="{{url('admin/usercategory/create')}}" class="btn bg-gradient-primary btn-sm">Create UserCategory</a>
-
-			</h1>
+            <h1>Leads Category
+				<a href="{{url('admin/leadscategory/create')}}" class="btn bg-gradient-primary btn-sm">Create Leads Category</a>
+				</h1>
           </div>
           <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">UserCategory</li>
-            </ol>
+            {{ Breadcrumbs::render('leadscategory.index') }}
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -30,10 +26,9 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">UserCategory</h3>
-
+                <h3 class="card-title">Leads Category</h3>
                 <div class="card-tools">
-                  <form method="GET" action="{{url('admin/usercategory')}}">
+                  <form method="get" action="{{url('admin/leadscategory')}}">
                   <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="search" value="{{request()->get('search') ? request()->get('search') : ''}}" class="form-control float-right" placeholder="Search">
 
@@ -43,7 +38,6 @@
                       </button>
                     </div>
                   </div>
-                  </form>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -52,34 +46,36 @@
                   <thead>
                     <tr>
                       <th>ID</th>
-                      <th>Name</th>
+                      <th>Title</th>
                       <th>Date</th>
                       <th>Status</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                      @foreach($usercategory as $key=>$t)
+                      @foreach($leadscategory as $key=>$cat)
                     <tr>
-                        <td>{{$key+ $usercategory->firstItem() }}</td>
-                      <td>{{$t->name}}</td>
-                      <td>{{$t->created_at}}</td>
-                      <td>{{$t->status==1 ? 'Active' : 'Deactive'}}</td>
-                      <td>
-					  <a class="btn btn-app" href="{{route('usercategory.edit',$t->id)}}"><i class="fas fa-edit"></i> Edit</a>
+                      <td>{{$key+ $leadscategory->firstItem() }}</td>
+                      <td>{{$cat->name}}</td>
+                      <td>{{$cat->created_at}}</td>
+                      <td>{{$cat->status==1 ? 'Active' : 'Deactive'}}</td>
+                      <td><a class="btn btn-app" href="{{route('leadscategory.edit',$cat->id)}}"><i class="fas fa-edit"></i> Edit</a>
 					  </td>
                     </tr>
                    @endforeach
                   </tbody>
+				    
                 </table>
+				
               </div>
+			
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
           </div>
         </div>
-       <div class="row">
-	 {!! $usercategory->links() !!}
+     <div class="row">
+	 {!! $leadscategory->links() !!}
 	 </div>
       </div><!-- /.container-fluid -->
     </section>

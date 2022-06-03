@@ -11,10 +11,7 @@
 				</h1>
           </div>
           <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Roles</li>
-            </ol>
+            {{ Breadcrumbs::render('roles.index') }}
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -34,7 +31,7 @@
                   <form method="get" action="{{url('admin/roles')}}">
                   <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="search" value="{{request()->get('search') ? request()->get('search') : ''}}" class="form-control float-right" placeholder="Search">
-
+                    
                     <div class="input-group-append">
                       <button type="submit" class="btn btn-default">
                         <i class="fas fa-search"></i>

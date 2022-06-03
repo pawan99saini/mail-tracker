@@ -9,10 +9,7 @@
             <h1>Compose</h1>
           </div>
           <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Compose</li>
-            </ol>
+            {{ Breadcrumbs::render('emails.create') }}
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -35,7 +32,7 @@
               @csrf
             <div class="form-group">
              
-              <select  name="to" class="select2" multiple="multiple" data-placeholder="Select To" style="width: 100%;">
+              <select  name="to[]" class="select2" multiple="multiple" data-placeholder="Select To" style="width: 100%;">
                 <option value="">To:</option>
                 @foreach($users as $k=>$user)
                 <option value="{{$user->email}}" {{ $user->email ==old('to') ? 'selected' : ''}} >{{$user->email}}</option>
@@ -81,6 +78,9 @@
           @endif
             </div>
             <div class="form-group">
+            </br>
+            <span class="addElement btn-dark btn-sm">Name</span>
+            <span class="addElement btn-dark btn-sm">Email</span>
                 <textarea class="form-control textarea" name="message">
                   
                 </textarea>
