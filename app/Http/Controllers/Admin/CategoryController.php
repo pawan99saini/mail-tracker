@@ -140,7 +140,7 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //
-        Category::find($id)->delete();
+         Category::find($id)->delete();
          return back()->with('success','Category deleted successfully');
     }
 	

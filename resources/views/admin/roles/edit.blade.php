@@ -33,8 +33,8 @@
                                 @csrf
                                 @method('PUT') <div class="card-body">
                                     <div class="form-group">
-                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
-                                        <div class="col-sm-10">
+                                        <label for="inputEmail3" class="col-form-label">Name</label>
+                                        
                                             <input type="text" class="form-control" name="name" id="inputEmail3"
                                                 value="{{ $role->name}}" placeholder="Name">
                                             @if ($errors->has('name'))
@@ -42,10 +42,10 @@
                                                     {{ $errors->first('name') }}
                                                 </span>
                                             @endif
-                                        </div>
+                                        
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Permission</label>
+                                        <label for="inputEmail3" class="col-form-label">Permission</label>
                                         @foreach ($permission as $value)
                                             <div class="custom-control custom-checkbox">
                                                 <input

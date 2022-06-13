@@ -62,11 +62,12 @@
                       <td>{{$cat->status==1 ? 'Active' : 'Deactive'}}</td>
                       <td>
                         <a class="btn btn-sm btn-primary" href="{{route('category.edit',$cat->id)}}"><i class="fas fa-edit"></i></a>
-                        <form  action="{{route('category.destroy',$cat->id)}}" method="POST">
+                        <form  action="{{route('category.destroy',$cat->id)}}" method="POST" style="display:none">
                           @csrf
                           @method('DELETE')
-                          <a href="javascript:" class="btn btn-sm btn-danger delete"><i class="fas fa-trash"></i></a>
                       </form>
+                      <a href="javascript:" class="btn btn-sm btn-danger delete"><i class="fas fa-trash"></i></a>
+
 					  </td>
                     </tr>
                    @endforeach

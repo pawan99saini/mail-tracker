@@ -50,13 +50,11 @@
                   <thead>
                     <tr>
                       <th>No.</th>
-                      <th>Sender Name</th>
-                      <th>Sender Email</th>
-                      <th>Recipient Name</th>
-                      <th>Recipient Email</th>
-                      <th>Opens</th>
-                      <th>Clicks</th>
-                      <th>Date</th>
+                      <th>Title </th>
+                      <th>Open Count</th>
+                      <th>Click count</th>
+                      <th>Register Count</th>
+                    
                       
                     </tr>
                   </thead>
@@ -64,13 +62,11 @@
                       @foreach($emails as $key=>$email)
                     <tr>
                         <td>{{$key+ $emails->firstItem() }}</td>
-                      <td>{{$email->sender_name}}</td>
-                      <td>{{$email->sender_email}}</td>
-                      <td>{{$email->recipient_name}}</td>
-                      <td>{{$email->recipient_email}}</td>
-                      <td>{{$email->opens}}</td>
-                      <td>{{$email->clicks}}</td>
-                      <td>{{$email->created_at}}</td>
+                        <td>{{$email->title}}</td>
+                      <td>{{$email->open_count}}</td>
+                      <td>{{$email->click_count}}</td>
+                      <td>0</td>
+                      
                      
                     </tr>
                    @endforeach

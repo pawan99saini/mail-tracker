@@ -33,22 +33,24 @@
                   @method('PUT')
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
-                    <div class="col-sm-10">
+                    <label for="inputEmail3" class="col-form-label">Name</label>
+                    
                       <input type="text" class="form-control" name="name" id="inputEmail3" value="{{$leadscategory->name}}" placeholder="Title" >
                       @if ($errors->has('name'))
                     <span class="text-danger">
                     {{ $errors->first('name') }}
                     </span>
                     @endif
-                    </div>
+                    
                   </div>
 				
-                  Status
+                  <div class="form-group">
+                  <label  class="col-form-label">Status</label>
                         <div class="material-switch pull-right">
                             <input id="someSwitchOptionSuccess" name="status" type="checkbox" {{$leadscategory->status==1 ? 'checked':''}}/>
                             <label for="someSwitchOptionSuccess" class="label-success"></label>
                         </div>
+                      </div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">

@@ -50,28 +50,20 @@
                   <thead>
                     <tr>
                       <th>No.</th>
-                      <th>Sender Name</th>
-                      <th>Sender Email</th>
-                      <th>Recipient Name</th>
                       <th>Recipient Email</th>
-                      <th>Opens</th>
-                      <th>Clicks</th>
-                      <th>Date</th>
-                      
+                      <th>Email Subject</th>
+                      <th>Open</th>
+                      <th>Date</th>    
                     </tr>
                   </thead>
                   <tbody>
                       @foreach($emails as $key=>$email)
                     <tr>
                         <td>{{$key+ $emails->firstItem() }}</td>
-                      <td>{{$email->sender_name}}</td>
-                      <td>{{$email->sender_email}}</td>
-                      <td>{{$email->recipient_name}}</td>
-                      <td>{{$email->recipient_email}}</td>
-                      <td>{{$email->opens}}</td>
-                      <td>{{$email->clicks}}</td>
-                      <td>{{$email->created_at}}</td>
-                     
+                      <td>{{$email->receiver_email}}</td>
+                      <td>{{$email->email_subject}}</td>
+                      <td>{{$email->email_status==1 ? 'Yes' : 'No'}}</td>
+                      <td>{{$email->email_open_datetime}}</td>
                     </tr>
                    @endforeach
                   </tbody>

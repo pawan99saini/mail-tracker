@@ -1,15 +1,15 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\SentEmail;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Lead;
+use App\Models\MailTrack;
 use Mail;
 use File;
+use Illuminate\Support\Str;
 
 class EmailController extends Controller
 {
@@ -22,15 +22,15 @@ class EmailController extends Controller
     {
         $search =  $request->input('search');
         if($search!=""){
-            $emails = SentEmail::where(function ($query) use ($search){
-                $query->where('title', 'like', '%'.$search.'%');
+            $emails = MailTrack::where(function ($query) use ($search){
+                $query->where('receiver_email', 'like', '%'.$search.'%');
                     
             })
             ->paginate(10);
             $emails->appends(['search' => $search]);
         }
         else{
-            $emails = SentEmail::orderby('id','desc')->paginate(10);
+            $emails = MailTrack::orderby('id','desc')->paginate(10);
 
         }
     	return view('admin.emails.index',compact('emails'));
@@ -94,12 +94,13 @@ class EmailController extends Controller
     {
     $email = $val;
     $name =   Lead::where('email',$email)->value('name');
-    $arr1 = ['Name','Email'];
+    $arr1 = ['[Name]','[Email]'];
     $arr2 = [$name,$email];
     $body = str_replace($arr1, $arr2, $data['message']);
+    $track_code = md5(rand());
+    $body .= '<img src='.route('mailtrack', $track_code).' width="1" height="1" />';
     file_put_contents(resource_path('views/emails/email-template.blade.php'), $body);
-
-Mail::send('emails.email-template', ['data' => $data], function($message) use ($data,$email)
+$res= Mail::send('emails.email-template', ['data' => $data], function($message) use ($data,$email)
 {    
     if($data['filename']) {
         $message->to($email)->subject($data['subject'])->attach($data['filename']); 
@@ -107,8 +108,24 @@ Mail::send('emails.email-template', ['data' => $data], function($message) use ($
     else{
         $message->to($email)->subject($data['subject']); 
     }
-       
+    
+    //$message->getHeaders()->addTextHeader('X-Model-ID',$model->id);  
 });
+
+if ($res) {
+    $status = 1;
+}
+else{
+    $status = 2; 
+}
+       $mail = new MailTrack;
+       $mail->receiver_email = $email;
+       $mail->email_track_code = $track_code;
+       $mail->email_subject = $data['subject'];
+       $mail->email_body = $body;
+       $mail->status = $status;
+       $mail->save();
+     
     }
 return redirect('admin/emails')->with('success','New Record Add Successfully.....');
     }
@@ -135,24 +152,12 @@ return redirect('admin/emails')->with('success','New Record Add Successfully....
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+  
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

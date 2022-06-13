@@ -124,5 +124,10 @@ class LeadsController extends Controller
     public function destroy($id)
     {
         //
+        if(Lead::find($id)->delete())
+        {
+            return back()->with('success','Deleted successfully');
+
+        }
     }
 }

@@ -32,19 +32,19 @@
                   @csrf
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
-                    <div class="col-sm-10">
+                    <label for="inputEmail3" class="col-form-label">Title</label>
+                    
                       <input type="text" class="form-control" name="title" id="inputEmail3" value="{{ old('title')}}"placeholder="Title" >
                       @if ($errors->has('title'))
                     <span class="text-danger">
                     {{ $errors->first('title') }}
                     </span>
                     @endif
-                    </div>
+                    
                   </div>
 				  
-                  <div class="form-group" >
-                        <label>Select Category</label>
+                  <div class="form-group">
+                        <label class="col-form-label">Select Category</label>
                         <select class="form-control" name="category_id">
                           <option value="">Select</option>
                           @foreach($category as $cat)
@@ -59,12 +59,15 @@
                     @endif
                       </div>
                     
-                      
-                  Status
+                      <div class="form-group">  
+                  
+                  <label class="col-form-label">Status</label>
+
                         <div class="material-switch pull-right">
                             <input id="someSwitchOptionSuccess" name="status" type="checkbox" checked/>
                             <label for="someSwitchOptionSuccess" class="label-success"></label>
                         </div>
+                      </div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">

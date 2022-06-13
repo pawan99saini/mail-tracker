@@ -115,5 +115,10 @@ class TemplateController extends Controller
     public function destroy($id)
     {
         //
+        if(Template::find($id)->delete())
+        {
+            return back()->with('success','Deleted successfully');
+
+        }
     }
 }

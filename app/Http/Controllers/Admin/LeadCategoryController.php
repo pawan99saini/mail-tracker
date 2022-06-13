@@ -122,5 +122,10 @@ class LeadCategoryController extends Controller
     public function destroy($id)
     {
         //
+        if(LeadCategory::find($id)->delete())
+        {
+            return back()->with('success','Deleted successfully');
+
+        }
     }
 }

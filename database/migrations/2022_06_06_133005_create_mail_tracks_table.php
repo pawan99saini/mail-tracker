@@ -13,12 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('mail_tracks', function (Blueprint $table) {
             $table->id();
-            $table->string('title',100)->nullable();
-            $table->string('slug',100)->nullable();
+            $table->string('email_track_code')->unique();
+            $table->string('email_subject')->nullable();
+            $table->text('email_body')->nullable();
+            $table->string('receiver_email')->nullable();
+            $table->integer('group_id')->nullable();
             $table->tinyInteger('status')->default(0);
-            $table->integer('order_no')->default(0);
+            $table->dateTime('email_open_datetime ')->nullable();
+            $table->tinyInteger('email_status ')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -31,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('mail_tracks');
     }
 };

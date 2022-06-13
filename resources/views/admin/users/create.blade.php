@@ -32,8 +32,8 @@
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
-                                        <div class="col-sm-10">
+                                        <label for="inputEmail3" class="col-form-label">Name</label>
+                                        
                                             <input type="text" class="form-control" name="name" id="inputEmail3"
                                                 value="{{ old('name') }}" placeholder="Name">
                                             @if ($errors->has('name'))
@@ -41,12 +41,12 @@
                                                     {{ $errors->first('name') }}
                                                 </span>
                                             @endif
-                                        </div>
+                                        
                                     </div>
                                     
                                     <div class="form-group">
-                                        <label for="Email" class="col-sm-2 col-form-label">Email</label>
-                                        <div class="col-sm-10">
+                                        <label for="Email" class="col-form-label">Email</label>
+                                        
                                             <input type="email" class="form-control" name="email" id="Email"
                                                 value="{{ old('email') }}" placeholder="Email">
                                             @if ($errors->has('email'))
@@ -54,11 +54,11 @@
                                                     {{ $errors->first('email') }}
                                                 </span>
                                             @endif
-                                        </div>
+                                        
                                     </div>
                                     <div class="form-group">
-                                        <label for="mobile" class="col-sm-2 col-form-label">Mobile</label>
-                                        <div class="col-sm-10">
+                                        <label for="mobile" class="col-form-label">Mobile</label>
+                                        
                                             <input type="number" class="form-control" name="mobile" id="mobile"
                                                 value="{{ old('mobile') }}" min="1">
                                             @if ($errors->has('mobile'))
@@ -66,11 +66,11 @@
                                                     {{ $errors->first('mobile') }}
                                                 </span>
                                             @endif
-                                        </div>
+                                        
                                     </div>
                                     <div class="form-group">
-                                        <label for="password" class="col-sm-2 col-form-label">Password</label>
-                                        <div class="col-sm-10">
+                                        <label for="password" class="col-form-label">Password</label>
+                                        
                                             <input type="password" class="form-control" name="password" id="password"
                                                 value="{{ old('password') }}" >
                                             @if ($errors->has('password'))
@@ -78,11 +78,11 @@
                                                     {{ $errors->first('password') }}
                                                 </span>
                                             @endif
-                                        </div>
+                                        
                                     </div>
                                     <div class="form-group">
-                                        <label for="confirm-password" class="col-sm-2 col-form-label">Confirm Password</label>
-                                        <div class="col-sm-10">
+                                        <label for="confirm-password" class="col-form-label">Confirm Password</label>
+                                        
                                             <input type="password" class="form-control" name="confirm-password" id="confirm-password"
                                                 value="{{ old('confirm-password') }}" >
                                             @if ($errors->has('confirm-password'))
@@ -90,7 +90,7 @@
                                                     {{ $errors->first('confirm-password') }}
                                                 </span>
                                             @endif
-                                        </div>
+                                        
                                     </div>
                                     <div class="form-group">
                                       <label>Select Role</label>
@@ -106,11 +106,14 @@
                                       </span>
                                   @endif
                                       </div>
-                                    Status
+                                      <div class="form-group">
+                                    <label class="col-form-label">Status</label>
+
                                     <div class="material-switch pull-right">
                                         <input id="someSwitchOptionSuccess" name="status" type="checkbox" checked />
                                         <label for="someSwitchOptionSuccess" class="label-success"></label>
                                     </div>
+                                </div>
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer">

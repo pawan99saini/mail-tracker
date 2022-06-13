@@ -67,9 +67,9 @@ Breadcrumbs::for('groups.create', function (BreadcrumbTrail $trail) {
 });
 
 // Group > Edit 
-Breadcrumbs::for('groups.edit', function (BreadcrumbTrail $trail, Group $groups) {
-    $trail->parent('groups.index', $groups);
-    $trail->push('Edit', route('groups.edit', $groups));
+Breadcrumbs::for('groups.edit', function (BreadcrumbTrail $trail, Group $group) {
+    $trail->parent('groups.index', $group);
+    $trail->push('Edit', route('groups.edit', $group));
 });
 
 // Leads

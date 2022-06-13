@@ -19,7 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/mail', [HomeController::class, 'index']);
+Route::get('/mail-track/{token}', [App\Http\Controllers\HomeController::class, 'mailTrack'])->name('mailtrack');
 
 
 Auth::routes();

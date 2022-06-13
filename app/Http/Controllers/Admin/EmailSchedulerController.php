@@ -65,6 +65,7 @@ class EmailSchedulerController extends Controller
             'group_id' => 'required',
             'template_id' => 'required',
             'schedule_time' => 'required',
+            'email_subject' => 'required',
         ]);
 
         $input = $request->all();
@@ -94,6 +95,10 @@ class EmailSchedulerController extends Controller
     public function edit($id)
     {
         //
+        $group = Group::select('title','id')->where('status',1)->get();
+        $template = Template::select('title','id')->where('status',1)->get();
+        $emailscheduler = EmailScheduler::find($id);
+        return view('admin.emailscheduler.edit',compact('group','template','emailscheduler'));
     }
 
     /**
@@ -106,6 +111,19 @@ class EmailSchedulerController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validate($request, [
+            'title' => 'required',
+            'group_id' => 'required',
+            'template_id' => 'required',
+            'schedule_time' => 'required',
+        ]);
+
+        $input = $request->all();
+        Carbon::createFromFormat('Y-m-d H:i',$input['schedule_time'])->toDateTimeString();
+        $emailscheduler = EmailScheduler::find($id);
+        $emailscheduler->update($input);
+        return redirect()->route('emailscheduler.index')->with('success','Emailscheduler update successfully');
+
     }
 
     /**
@@ -117,5 +135,10 @@ class EmailSchedulerController extends Controller
     public function destroy($id)
     {
         //
+        if(EmailScheduler::find($id)->delete())
+        {
+            return back()->with('success','Deleted successfully');
+
+        }
     }
 }

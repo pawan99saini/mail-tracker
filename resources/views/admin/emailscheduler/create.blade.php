@@ -33,7 +33,7 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
-                                        <div class="col-sm-10">
+                                        
                                             <input type="text" class="form-control" name="title" id="inputEmail3"
                                                 value="{{ old('title') }}" placeholder="Title">
                                             @if ($errors->has('title'))
@@ -41,7 +41,19 @@
                                                     {{ $errors->first('title') }}
                                                 </span>
                                             @endif
-                                        </div>
+                                        
+                                    </div> 
+                                      <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Email Subject</label>
+                                        
+                                            <input type="text" class="form-control" name="email_subject" id="inputEmail3"
+                                                value="{{ old('email_subject') }}" placeholder="Email Subject">
+                                            @if ($errors->has('email_subject'))
+                                                <span class="text-danger">
+                                                    {{ $errors->first('email_subject') }}
+                                                </span>
+                                            @endif
+                                        
                                     </div>
                                     <div class="form-group" >
                                         <label>Select Group</label>

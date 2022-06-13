@@ -9,7 +9,7 @@
                         <h1>Group</h1>
                     </div>
                     <div class="col-sm-6">
-                        {{ Breadcrumbs::render('groups.edit',$groups) }}
+                        {{ Breadcrumbs::render('groups.edit',$group) }}
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
@@ -32,9 +32,9 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="card-body">
-                                    <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
-                                        <div class="col-sm-10">
+                                    <div class="form-group">
+                                        <label for="inputEmail3" class="col-form-label">Title</label>
+                                        
                                             <input type="text" class="form-control" name="title" id="inputEmail3"
                                                 value="{{ $group->title }}" placeholder="Title">
                                             @if ($errors->has('title'))
@@ -42,10 +42,10 @@
                                                     {{ $errors->first('title') }}
                                                 </span>
                                             @endif
-                                        </div>
+                                        
                                     </div>
                                     <div class="form-group">
-                                        <label>Select Category</label>
+                                        <label class="col-form-label">Select Category</label>
                                         <select class="form-control" name="category_id">
                                             <option value="">Select</option>
                                             @foreach ($category as $cat)
@@ -61,12 +61,14 @@
                                             </span>
                                         @endif
                                     </div>
-                                    Status
+                                    <div class="form-group">
+                                    
+                                    <label class="col-form-label">Status</label>
                                     <div class="material-switch pull-right">
-                                        <input id="someSwitchOptionSuccess" name="status" type="checkbox"
-                                            {{ $group->status == 1 ? 'checked' : '' }} />
+                                        <input id="someSwitchOptionSuccess" name="status" type="checkbox" {{$group->status==1 ? 'checked':''}}/>
                                         <label for="someSwitchOptionSuccess" class="label-success"></label>
                                     </div>
+                                </div>
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer">

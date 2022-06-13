@@ -67,7 +67,11 @@
                        <td>
 
                           <a class="btn btn-app" href="{{route('users.edit',$user->id)}}"><i class="fas fa-edit"></i> Edit</a>
-
+                          <form  action="{{route('users.destroy',$user->id)}}" method="POST" style="display:none">
+                            @csrf
+                            @method('DELETE')
+                        </form>
+                        <a href="javascript:" class="btn btn-sm btn-danger delete"><i class="fas fa-trash"></i></a>
                        </td>
                      </tr>
                     @endforeach

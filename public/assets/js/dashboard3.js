@@ -201,5 +201,6 @@ let elements = document.getElementsByClassName("addElement");
 
     function insertAtCaret(myValue,name){
       myValue = myValue.trim();
+      myValue = '['+myValue+']';
       CKEDITOR.instances[name].insertText(myValue);
   };

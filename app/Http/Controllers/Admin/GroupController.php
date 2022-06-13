@@ -61,7 +61,7 @@ class GroupController extends Controller
         ]);
     
         $input = $request->all();
-        $input['status'] =  $input['status'] ? 1 : 0 ;
+        $input['status'] =  !empty($input['status']) ? 1 : 0 ;
 
         Group::create($input);
         return redirect()->route('groups.index')->with('success','LeadCategory created successfully');
@@ -96,10 +96,25 @@ class GroupController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validate($request, [
+            'title' => 'required',
+            'category_id' => 'required',
+        ]);
+    
+        $input = $request->all();
+        $input['status'] =  !empty($input['status']) ? 1 : 0 ;
+        $group= Group::find($id);
+        $group->update($input);
+        return redirect()->route('emailscheduler.index')->with('success','Group update successfully');
     }
 
     public function destroy($id)
     {
         //
+        if(Group::find($id)->delete())
+        {
+            return back()->with('success','Deleted successfully');
+
+        }
     }
 }

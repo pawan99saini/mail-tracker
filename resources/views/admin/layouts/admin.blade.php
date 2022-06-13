@@ -26,6 +26,7 @@
     height: 0px;
     position: relative; 
     width: 40px;  
+    top:10;
 }
 
 .material-switch > label::before {
@@ -63,6 +64,9 @@
 }
 .label-success {
     background-color: #5cb85c;
+}
+.cke_chrome{
+    margin-top: 10px !important;
 }
   </style>
 </head>
@@ -125,7 +129,7 @@ var site_url = "{{url('/')}}";
  $('#reservationdatetime').datetimepicker({ icons: { time: 'far fa-clock',
  
 },format: 'YYYY-MM-DD hh:mm',
-minDate:new Date()
+useCurrent: false
 
  });
 
@@ -140,7 +144,7 @@ minDate:new Date()
     }).then(function(value) {
         if (value) {
            
-            c.closest('form').submit();
+            c.closest('td').find('form').submit();
         }
     });
 });

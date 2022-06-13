@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title',100)->nullable();
             $table->integer('category_id');
+            $table->integer('order_no');
             $table->longText('description')->default(null);
             $table->tinyInteger('status')->default(0);
             $table->softDeletes();

@@ -52,24 +52,26 @@
                       <th>Customer Group</th>
                       <th>Schedule Date Time</th>
                       <th>Status</th>
-                     
+                     <th>Action</th>
                     </tr>
                     @foreach ($data as $key => $val)
                     @php
+                    
                     switch ($val->status) {
                       case 0:
                           $status = '<span class="badge bg-primary">Pending</span>';
                           break;
                       case 1:
-                      $status = '<span class="badge bg-success">Pending</span>';
+                      $status = '<span class="badge bg-success">Success</span>';
                           break;
                       case 2:
-                      $status = '<span class="badge bg-danger">Danger</span>';
+                      $status = '<span class="badge bg-danger">Failed</span>';
                           break;
                   }
                     
                         
                     @endphp
+                    
                      <tr>
                        <td>{{$key+1 }}</td>
                        <td>{{ $val->title }}</td>
@@ -77,7 +79,15 @@
                        <td>{{ $val->groups->title }}</td>
                        <td>{{ $val->schedule_time }}</td>
                        <td>{!! $status !!}</td>
-                       
+                       <td>
+                        <a class="btn btn-sm btn-primary" href="{{route('emailscheduler.edit',$val->id)}}"><i class="fas fa-edit"></i></a>
+                        <form  action="{{route('emailscheduler.destroy',$val->id)}}" method="POST" style="display:none">
+                          @csrf
+                          @method('DELETE')
+                      </form>
+                      <a href="javascript:" class="btn btn-sm btn-danger delete"><i class="fas fa-trash"></i></a>
+
+					  </td>
                      </tr>
                     @endforeach
                   </tbody>

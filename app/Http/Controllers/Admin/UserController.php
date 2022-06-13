@@ -138,6 +138,11 @@ class UserController extends Controller {
      */
     public function destroy($id) {
         //
+        if(User::find($id)->delete())
+        {
+            return back()->with('success','Deleted successfully');
+
+        }
     }
 
   

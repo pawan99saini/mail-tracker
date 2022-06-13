@@ -63,8 +63,13 @@
                       <td>{{$t->created_at}}</td>
                       <td>{{$t->status==1 ? 'Active' : 'Deactive'}}</td>
                       <td>
-					  <a class="btn btn-app" href="{{route('groups.edit',$t->id)}}"><i class="fas fa-edit"></i> Edit</a>
-					  </td>
+					  <a class="btn btn-primary btn-sm" href="{{route('groups.edit',$t->id)}}"><i class="fas fa-edit"></i></a>
+					  <form  action="{{route('groups.destroy',$t->id)}}" method="POST" style="display:none">
+              @csrf
+              @method('DELETE')
+          </form>
+          <a href="javascript:" class="btn btn-sm btn-danger delete"><i class="fas fa-trash"></i></a>
+          </td>
                     </tr>
                    @endforeach
                   </tbody>
