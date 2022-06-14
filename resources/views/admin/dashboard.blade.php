@@ -65,7 +65,7 @@
                         <td>{{$email->title}}</td>
                       <td>{{$email->open_count}}</td>
                       <td>{{$email->click_count}}</td>
-                      <td>0</td>
+                      <td>{{$email->register_count}}</td>
                       
                      
                     </tr>
@@ -80,6 +80,9 @@
         </div>
        <div class="row">
 	 {!! $emails->links() !!}
+   <div class="chart">
+    <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+  </div>
 	 </div>
       </div><!-- /.container-fluid -->
     </section>

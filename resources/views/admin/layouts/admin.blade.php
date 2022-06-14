@@ -104,6 +104,7 @@
 <script src="{{asset('assets/js/dashboard3.js')}}"></script>
 <script src="{{asset('assets/js/moment.min.js')}}"></script>
 <script src="{{asset('assets/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+<script src="{{asset('assets/js/Chart.min.js')}}"></script>
 
 
 
@@ -152,6 +153,28 @@ useCurrent: false
     });
 
     
+    
+    var xValues = @json($chart_array['month']);
+var yValues = @json($chart_array['count']);
+var barColors = ["red", "green","blue","orange","brown"];
+
+new Chart("barChart", {
+  type: "bar",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+      text: "Mail Sent"
+    }
+  }
+});
 
 </script>
 
